@@ -63,7 +63,7 @@ router.post('/login',passport.authenticate("local",{
   res.send("success");
 });
 
-router.get('/logout',()=>{
+router.get('/logout',(req,res)=>{
   req.logout();
   res.send("success");
 });
@@ -71,7 +71,7 @@ router.get('/logout',()=>{
 function isLogged(req,res,next){
   if(req.isAuthenticated())
   return next();
-  res.send("success");
+  res.send("kuch ni milega");
 }
 
 module.exports=router;
