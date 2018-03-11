@@ -47,6 +47,9 @@ router.post('/users', (req, res) => {
 		const name = req.body.name;
 		const email = req.body.email;
 		const password = req.body.password;
+    console.log(name);
+    console.log(email);
+    console.log(password);
 		if (!name || !email || !password || !name.trim() || !email.trim() || !password.trim()) {
 			res.status(400).json({message: 'Invalid Request !'});
 		} else {

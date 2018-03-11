@@ -15,7 +15,7 @@ var app=express();
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(bodyparser.urlencoded({extended:true}));
+app.use(bodyparser.json());
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine','ejs');
 app.use(dbRoutes);
