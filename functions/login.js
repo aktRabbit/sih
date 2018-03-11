@@ -1,6 +1,8 @@
 'use strict';
+
 const user = require('../models/user-model');
 const bcrypt = require('bcryptjs');
+const mongoose = require('../databases/mongoose');
 
 exports.loginUser = (email, password) =>
 	new Promise((resolve,reject) => {
@@ -12,6 +14,7 @@ exports.loginUser = (email, password) =>
 				return users[0];
 			}
 		})
+
 		.then(user => {
 			const hashed_password = user.hashed_password;
 			if (bcrypt.compareSync(password, hashed_password)) {
@@ -21,4 +24,5 @@ exports.loginUser = (email, password) =>
 			}
 		})
 		.catch(err => reject({ status: 500, message: 'Internal Server Error !' }));
+
 	});

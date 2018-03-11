@@ -1,5 +1,7 @@
 'use strict';
+
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
 const userSchema = mongoose.Schema({
@@ -12,5 +14,7 @@ const userSchema = mongoose.Schema({
 	temp_password_time: String
 
 });
+
+mongoose.Promise = global.Promise;
 
 module.exports = mongoose.model('user', userSchema);

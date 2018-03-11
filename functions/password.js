@@ -1,10 +1,11 @@
 'use strict';
+
 const user = require('../models/user-model');
+const mongoose = require('../databases/mongoose');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const randomstring = require("randomstring");
-const config = require('../config/keys');
-
+const config = require('../config/config.json');
 
 exports.changePassword = (email, password, newPassword) =>
 	new Promise((resolve, reject) => {
@@ -25,7 +26,6 @@ exports.changePassword = (email, password, newPassword) =>
 		.catch(err => reject({ status: 500, message: 'Internal Server Error !' }));
 	});
 
-
 exports.resetPasswordInit = email =>
 	new Promise((resolve, reject) => {
 		const random = randomstring.generate(8);
@@ -42,13 +42,28 @@ exports.resetPasswordInit = email =>
 				return user.save();
 			}
 		})
+
 		.then(user => {
-			const transporter = nodemailer.createTransport(`smtps://${keys.mail.mailID}:${keys.mail.password}@smtp.gmail.com`);
+
+console.log(user.email);
+      var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      host: 'smtp.ethereal.email',
+      port: 3000,
+      secure: false,
+
+      auth: {
+        user: config.email,
+        pass: config.password
+      }
+});
 			const mailOptions = {
-    			from: `"${keys.mail.name}" <${keys.mail.mailID}>`,
-    			to: email,
+      //  console.log(config.mail);
+
+    			from: config.email,
+    			to: user.email,
     			subject: 'Reset Password Request ',
-    			html: `Hello ${user.name}
+    			html: `Hello ${user.name},
 
     			     Your reset password token is <b>${random}</b>.
     			If you are viewing this mail from a Android Device click this <a href="http://learn2crack/${random}">link</a>.
@@ -56,9 +71,13 @@ exports.resetPasswordInit = email =>
 
     			Thanks,
     			Learn2Crack.`
+
 			};
-			return transporter.sendMail(mailOptions);
+
+      return transporter.sendMail(mailOptions);
+
 		})
+
 		.then(info => {
 			console.log(info);
 			resolve({ status: 200, message: 'Check mail for instructions' })
@@ -70,12 +89,16 @@ exports.resetPasswordInit = email =>
 		});
 	});
 
-
 exports.resetPasswordFinish = (email, token, password) =>
+
 	new Promise((resolve, reject) => {
+
 		user.find({ email: email })
+
 		.then(users => {
+
 			let user = users[0];
+
 			const diff = new Date() - new Date(user.temp_password_time);
 			const seconds = Math.floor(diff / 1000);
 			console.log(`Seconds : ${seconds}`);
@@ -89,12 +112,17 @@ exports.resetPasswordFinish = (email, token, password) =>
 				user.hashed_password = hash;
 				user.temp_password = undefined;
 				user.temp_password_time = undefined;
+
 				return user.save();
 
 			} else {
+
 				reject({ status: 401, message: 'Invalid Token !' });
 			}
 		})
+
 		.then(user => resolve({ status: 200, message: 'Password Changed Successfully !' }))
+
 		.catch(err => reject({ status: 500, message: 'Internal Server Error !' }));
+
 	});

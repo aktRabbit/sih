@@ -1,28 +1,17 @@
-const express = require('express');
-const bodyparser = require('body-parser');
-const dbRoutes = require('./routes/db-routes');
-const passport = require('passport');
-const passportLocalMongoose = require('passport-local-mongoose');
-const LocalStrategy = require('passport-local');
-const expressSession = require('express-session');
-const path= require('path');
-const keys = require('./config/keys');
 
 
-
-var app=express();
-
-
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(bodyparser.json());
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine','ejs');
-app.use(dbRoutes);
-
-var port=process.env.PORT||3000;
+const express    = require('express');
+const app        = express();
+const bodyParser = require('body-parser');
+const logger 	   = require('morgan');
+const port 	   = process.env.PORT || 3000;
+const router               = require('./routes/routes');
+app.use(bodyParser.json());
+app.use(logger('dev'));
 
 
-app.listen(port,process.env.IP,()=>{
-  console.log(`Starting at port ${port}`);
-});
+app.use('/', router);
+
+app.listen(port);
+
+console.log(`App Runs on ${port}`);
