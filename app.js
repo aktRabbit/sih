@@ -11,11 +11,7 @@ const keys = require('./config/keys');
 
 
 var app=express();
-app.use(expressSession({
-  secret:keys.localstrategy.clientSecret,
-  resave: false,
-  saveUninitialized: false
-}));
+
 
 app.use(passport.initialize());
 app.use(passport.session());

@@ -1,14 +1,16 @@
+'use strict';
 const mongoose = require('mongoose');
-const passportLocalMongoose = require('passport-local-mongoose');
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-    username: String,
-    password: String
+const userSchema = mongoose.Schema({
+
+	name 			: String,
+	email			: String,
+	hashed_password	: String,
+	created_at		: String,
+	temp_password	: String,
+	temp_password_time: String
+
 });
 
-userSchema.plugin(passportLocalMongoose);
-
-const User = mongoose.model('user', userSchema);
-
-module.exports = User;
+module.exports = mongoose.model('user', userSchema);
