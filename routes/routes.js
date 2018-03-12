@@ -11,6 +11,7 @@ const mongoose = require('../databases/mongoose');
 const river = require('../models/river-model');
 
 router.get('/',(req,res)=>{
+  console.log(req);
   river.find().then((doc)=>{
     res.send(doc);
   },(err)=>{
@@ -19,7 +20,6 @@ router.get('/',(req,res)=>{
 });
 
 router.post('/',(req,res)=>{
-  console.log(req.body);
   var river_obj=new river({
     name:req.body.name,
     quantity:req.body.quantity,
