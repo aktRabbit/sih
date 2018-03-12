@@ -47,7 +47,7 @@ exports.resetPasswordInit = email =>
       var transporter = nodemailer.createTransport({
       service: 'gmail',
       host: 'smtp.ethereal.email',
-      port: 3000,
+      port: process.env.PORT||3000,
       secure: false,
 
       auth: {
