@@ -44,10 +44,11 @@ exports.resetPasswordInit = email =>
 		})
 
 		.then(user => {
+    //  const transporter = nodemailer.createTransport(`smtps://${config.email}:${config.password}@smtp.gmail.com`);
       var transporter = nodemailer.createTransport({
       service: 'gmail',
-      host: 'smtp.ethereal.email',
-      port: process.env.PORT||3000,
+      host: 'smtp.gmail.com',
+      port: 465,
       secure: false,
 
       auth: {
@@ -67,7 +68,7 @@ exports.resetPasswordInit = email =>
     			The token is valid for only 2 minutes.
 
     			Thanks,
-    			Learn2Crack.`
+    			Ankit Singh.`
 
 			};
 
