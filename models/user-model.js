@@ -8,6 +8,7 @@ const userSchema = mongoose.Schema({
 
 	name 			: String,
 	email			: String,
+  userID    : String,
 	hashed_password	: String,
 	created_at		: String,
 	temp_password	: String,

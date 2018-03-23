@@ -7,9 +7,9 @@ const nodemailer = require('nodemailer');
 const randomstring = require("randomstring");
 const config = require('../config/config.json');
 
-exports.changePassword = (email, password, newPassword) =>
+exports.changePassword = (userID, password, newPassword) =>
 	new Promise((resolve, reject) => {
-		user.find({ email: email })
+		user.find({ userID: userID })
 		.then(users => {
 			let user = users[0];
 			const hashed_password = user.hashed_password;

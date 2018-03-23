@@ -3,16 +3,19 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const riverSchema = new Schema({
-    email: String,
+    userID: String,
     river_name: String,
     quantity: [Number],
     pH: [Number],
     tds:[Number],
     dissolve_oxygen: [Number],
     type_of_uses: [Schema.Types.Mixed],
-    updated_at : [String],
+    updated_at : [Number],
     pincode : Number,
-    district: String
+    district: String,
+    state:String,
+    latitude:Number,
+    longitude:Number
 
 });
 

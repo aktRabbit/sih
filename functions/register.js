@@ -4,15 +4,16 @@ const user = require('../models/user-model');
 const bcrypt = require('bcryptjs');
 const mongoose = require('../databases/mongoose');
 
-exports.registerUser = (name, email, password) =>
+exports.registerUser = (userID, name, email, password) =>
 	new Promise((resolve,reject) => {
 	   const salt = bcrypt.genSaltSync(10);
 		const hash = bcrypt.hashSync(password, salt);
-    user.find({email:email}).then((doc)=>{
+    user.find({email:email,userID:userID}).then((doc)=>{
       if(doc.length===0)
       {
         const newUser = new user({
     			name: name,
+          userID: userID,
     			email: email,
     			hashed_password: hash,
     			created_at: new Date()

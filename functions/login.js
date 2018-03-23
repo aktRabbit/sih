@@ -4,9 +4,9 @@ const user = require('../models/user-model');
 const bcrypt = require('bcryptjs');
 const mongoose = require('../databases/mongoose');
 
-exports.loginUser = (email, password) =>
+exports.loginUser = (userID, password) =>
 	new Promise((resolve,reject) => {
-		user.find({email: email})
+		user.find({userID: userID})
 		.then(users => {
 			if (users.length == 0) {
 				reject({ status: 404, message: 'User Not Found !' });
@@ -18,7 +18,7 @@ exports.loginUser = (email, password) =>
 		.then(user => {
 			const hashed_password = user.hashed_password;
 			if (bcrypt.compareSync(password, hashed_password)) {
-				resolve({ status: 200, message: email });
+				resolve({ status: 200, message: userID });
 			} else {
 				reject({ status: 401, message: 'Invalid Credentials !' });
 			}
