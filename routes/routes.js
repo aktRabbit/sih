@@ -10,6 +10,7 @@ const config = require('../config/config.json');
 const mongoose = require('../databases/mongoose');
 const river = require('../models/river-model');
 const moment = require('moment');
+const predict=require('../machine_learning/ml');
 
 var state_list = [
 "andhra pradesh",
@@ -221,15 +222,23 @@ router.post('/search/river',(req,res)=>{
       tDs.push(td/count);
       disoxy.push(dis/count);
    }
-    var river_obj={
-      pH:ph,
-      quantity:quantity1,
-      tds:tDs,
-      dissolve_oxygen:disoxy,
-      river_name:rivername,
-      update:update
-    };
-    res.send(river_obj);
+   var len=docs[0].pH.length;
+   predict(ph,docs[0].updated_at[len-1],(result)=>{
+     if(result){
+       var river_obj={
+         pH:ph,
+         quantity:quantity1,
+         tds:tDs,
+         dissolve_oxygen:disoxy,
+         river_name:rivername,
+         update:update,
+         result:result
+       };
+       res.send(river_obj);
+     }
+
+   });
+
   })
 });
 
