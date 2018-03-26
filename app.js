@@ -1,5 +1,5 @@
 
-
+require('./config/secret');
 const express    = require('express');
 const app        = express();
 const bodyParser = require('body-parser');
@@ -17,3 +17,4 @@ app.use('/', router);
 app.listen(port);
 
 console.log(`App Runs on ${port}`);
+module.exports = {app};

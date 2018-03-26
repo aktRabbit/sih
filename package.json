@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "mocha **/*.test.js"
+    "test": "export NODE_ENV=test || SET NODE_ENV=test && mocha **/*.test.js"
   },
   "engines": {
     "node": "8.10.0"
@@ -32,6 +32,8 @@
     "randomstring": "^1.1.5"
   },
   "devDependencies": {
-    "mocha": "^5.0.5"
+    "expect": "^22.4.3",
+    "mocha": "^5.0.5",
+    "supertest": "^3.0.0"
   }
 }

@@ -20,7 +20,7 @@ var predict=(input,time,callback)=>{
 
 
   var i=co;
-  var ti=0;
+  var ti=1;
 
   while(regressionModel.predict(parseFloat(i))>critical_min&&
 regressionModel.predict(parseFloat(i))<critical_max)

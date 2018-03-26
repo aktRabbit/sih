@@ -4,16 +4,28 @@ const Schema = mongoose.Schema;
 
 const riverSchema = new Schema({
     userID: String,
-    river_name: String,
+    river_name:{
+      type:String,
+      required:true
+    },
     quantity: [Number],
     pH: [Number],
     tds:[Number],
     dissolve_oxygen: [Number],
     type_of_uses: [Schema.Types.Mixed],
     updated_at : [Number],
-    pincode : Number,
-    district: String,
-    state:String,
+    pincode :{
+      type:Number,
+      required:true
+    },
+    district :{
+      type:String,
+      required:true
+    },
+    state :{
+      type:String,
+      required:true
+    },
     latitude:Number,
     longitude:Number
 

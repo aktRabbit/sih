@@ -137,7 +137,7 @@ router.post('/',(req,res)=>{
     river_obj.save().then((doc)=>{
     res.send(arr);
   },(err)=>{
-    res.status(401).send("Invalid format");
+    res.status(400).send(err);
     console.log(err);
   });
 }, 1000)
