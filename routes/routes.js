@@ -140,7 +140,7 @@ router.post('/',(req,res)=>{
     res.status(400).send(err);
     console.log(err);
   });
-}, 2000)
+}, 1000)
 
 });
 
