@@ -18,7 +18,7 @@ var predict=(input,time,callback)=>{
   regressionModel = new SLR(output, input);
   var date=moment(time);
 
-
+ var dd=0;
   var i=co;
   var ti=1;
 
