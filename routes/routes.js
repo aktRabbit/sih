@@ -118,29 +118,39 @@ router.post('/',(req,res)=>{
       }
     }
   })
-    var current_date=new Date();
-  setTimeout(function () {
-    var river_obj=new river();
-    river_obj.userID=req.body.userID;
-    river_obj.river_name=req.body.river_name;
-    river_obj.quantity.push(req.body.quantity);
-    river_obj.pH.push(req.body.pH);
-    river_obj.tds.push(req.body.tds);
-    river_obj.dissolve_oxygen.push(req.body.dissolve_oxygen);
-    river_obj.type_of_uses.push(req.body.type_of_uses);
-    river_obj.updated_at.push(moment().valueOf());
-    river_obj.latitude=req.body.latitude;
-    river_obj.longitude=req.body.longitude;
-    river_obj.pincode=req.body.pincode;
-    river_obj.district=req.body.district;
-    river_obj.state=req.body.state;
-    river_obj.save().then((doc)=>{
-    res.send(arr);
-  },(err)=>{
-    res.status(400).send(err);
-    console.log(err);
-  });
-}, 1000)
+  river.find({river_name:req.body.river_name.toLowerCase(),userID:req.body.userID}).then((doc)=>{
+    console.log(doc);
+    if(doc.length==0)
+    {
+      var current_date=new Date();
+    setTimeout(function () {
+      var river_obj=new river();
+      river_obj.userID=req.body.userID;
+      river_obj.river_name=req.body.river_name.toLowerCase();
+      river_obj.quantity.push(req.body.quantity);
+      river_obj.pH.push(req.body.pH);
+      river_obj.tds.push(req.body.tds);
+      river_obj.dissolve_oxygen.push(req.body.dissolve_oxygen);
+      river_obj.type_of_uses.push(req.body.type_of_uses);
+      river_obj.updated_at.push(moment().valueOf());
+      river_obj.latitude=req.body.latitude;
+      river_obj.longitude=req.body.longitude;
+      river_obj.pincode=req.body.pincode;
+      river_obj.district=req.body.district;
+      river_obj.state=req.body.state;
+      river_obj.save().then((doc)=>{
+      res.send(arr);
+    },(err)=>{
+      res.status(400).send(err);
+      console.log(err);
+    });
+  }, 1000);
+}
+else{
+  res.status(400).send("Rver already exist in this block");
+}
+  })
+
 
 });
 
