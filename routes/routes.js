@@ -119,7 +119,6 @@ state_list.forEach((state)=>{
 
 //adding a new river
 
-
 var arr=["sent"];
 router.post('/',(req,res)=>{
   river.find({river_name:req.body.river_name.toLowerCase(),state:req.body.state}).then((doc)=>{
@@ -316,8 +315,6 @@ router.post('/search/river',(req,res)=>{
    var drain_per=avg/counting;
    var xx=(x_avg/x_co);
    var ans;
-   console.log(xx);
-   console.log(drain_per);
    if(xx<drain_per)
    {
      ans=((drain_per-xx)/drain_per)*100;
