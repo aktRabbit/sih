@@ -1,0 +1,38 @@
+const ml = require('ml-regression');
+const moment = require('moment');
+var output=[];
+
+var critical_min=0;
+var predict=(input,time,callback)=>{
+  output.length=0;
+  var co=1;
+  input.forEach((a)=>{
+    output.push(co);
+    co+=3;
+  });
+
+
+  const SLR = ml.SLR;
+  let regressionModel;
+  regressionModel = new SLR(output, input);
+  var date=moment(time);
+
+ var dd=0;
+  var i=co;
+  var ti=1;
+
+
+  while(regressionModel.predict(parseFloat(i))>critical_min)
+  {
+  	i+=3;
+    ti+=3;
+    if(ti===1000)
+      break;
+  }
+
+
+  var new_date=date.add(ti,'months');
+  callback(new_date.format('MMM YYYY'));
+}
+
+module.exports=predict;
