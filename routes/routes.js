@@ -181,7 +181,7 @@ router.post('/',(req,res)=>{
   }, 1000);
 }
 else{
-  res.status(400).send("Rver already exist in this block");
+  res.status(400).send("River already exist in this block");
 }
   })
 
@@ -248,7 +248,7 @@ router.get('/riverlist',(req,res)=>{
     res.status(500).send("Internal Server Error");
   })
 });
-
+''
 //give river by river name
 router.post('/search/river',(req,res)=>{
   var ph=[],quantity1=[],tDs=[],disoxy=[],rivername,update=[];
